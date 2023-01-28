@@ -1,19 +1,32 @@
-const { readFile, writeFile } = require('fs');
+const { readFile, writeFile } = require("fs");
+const path = require("path");
+const sep = path.sep;
 
- readFile('./content/first.txt', 'utf-8', (err, result) => {
-   if(err) {
-    console.log(err)
-    return
-   }
-   const first = result;
-   readFile('./content/second.txt', 'utf-8', (err, result) => {
-    if(err) {
-      console.log(err)
-      return
-     }
-     const second = result;
+readFile(`.${sep}content${sep}first.txt`, "utf-8", (err, result) => {
+  if (err) {
+    console.log(err);
+    return;
+  }
+  const first = result;
+  readFile(`.${sep}content${sep}second.txt`, "utf-8", (err, result) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    const second = result;
 
-     writeFile('./content/result-sync.txt', 'utf8', )
-   })
-   console.log(result);
- })
+    writeFile(
+      `.${sep}content${sep}result-sync.txt`,
+      `Here is the result ${first}, ${second} \n`,
+      {
+        flag: "a",
+      },
+      (err, result) => {
+        if(err) {
+          console.log(err);
+        }
+      }
+    );
+  });
+  console.log(result);
+});
